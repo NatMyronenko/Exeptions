@@ -1,4 +1,4 @@
-public class App {
+public class Part1 {
     //Throwable класс является суперклассом всех ошибок и исключений на языке Java
     //throws -используется в сигнатуре методов для предупреждения, о том что метод может
     // выбросить исключение.
@@ -581,75 +581,78 @@ class App34 {
         //    >> RUNTIME EXCEPTION: Exception in thread "main" java.lang.Error
 
     }
-    class App35{
-            //можно строить вложенные конструкции, но вот пример, «исправляющий» эту ситуацию
-            public static void main(String[] args) {
-                try {
-                    System.err.print(" 0");
-                    if (true) {
-                        throw new RuntimeException();
-                    }
-                    System.err.print(" 1");
-                } catch (RuntimeException e) { // перехватили RuntimeException
-                    System.err.print(" 2.1");
-                    try {
-                        System.err.print(" 2.2");
-                        if (true) {
-                            throw new Error();
-                        } // и бросили новый Error
-                        System.err.print(" 2.3");
-                    } catch (Throwable t) {            // перехватили Error
-                        System.err.print(" 2.4");
-                    }
-                    System.err.print(" 2.5");
-                } catch (Error e) { // хотя есть cath по Error "ниже", но мы в него не попадаем
-                    System.err.print(" 3");
-                }
-                System.err.println(" 4");
 
-                //>> 0 2.1 2.2 2.4 2.5 4
+    class App35 {
+        //можно строить вложенные конструкции, но вот пример, «исправляющий» эту ситуацию
+        public static void main(String[] args) {
+            try {
+                System.err.print(" 0");
+                if (true) {
+                    throw new RuntimeException();
+                }
+                System.err.print(" 1");
+            } catch (RuntimeException e) { // перехватили RuntimeException
+                System.err.print(" 2.1");
+                try {
+                    System.err.print(" 2.2");
+                    if (true) {
+                        throw new Error();
+                    } // и бросили новый Error
+                    System.err.print(" 2.3");
+                } catch (Throwable t) {            // перехватили Error
+                    System.err.print(" 2.4");
+                }
+                System.err.print(" 2.5");
+            } catch (Error e) { // хотя есть cath по Error "ниже", но мы в него не попадаем
+                System.err.print(" 3");
             }
+            System.err.println(" 4");
+
+            //>> 0 2.1 2.2 2.4 2.5 4
         }
     }
+}
 
- class App36 {
+class App36 {
     public static void main(String[] args) {
         // нельзя ставить потомка после предка! (RuntimeException после Exception)
         //try {
-            // } catch (Exception e) {
-            //  } catch (RuntimeException e) {
-            // }
+        // } catch (Exception e) {
+        //  } catch (RuntimeException e) {
+        // }
     }
-    }
-    //>> COMPILATION ERROR: Exception 'java.lang.RuntimeException' has alredy been caught
-     class App37 {
+}
+
+//>> COMPILATION ERROR: Exception 'java.lang.RuntimeException' has alredy been caught
+class App37 {
     //Ставить брата после брата — можно (RuntimeException после Error)
-        public static void main(String[] args) {
-            try {
-            } catch (Error e) {
-            } catch (RuntimeException e) {
-            }
+    public static void main(String[] args) {
+        try {
+        } catch (Error e) {
+        } catch (RuntimeException e) {
         }
     }
+}
 
- class App38 {
-     public static void main(String[] args) {
-         try {
-             throw new Exception();
-         } catch (RuntimeException e) {
-             System.err.println("catch RuntimeException");
-         } catch (Exception e) {
-             System.err.println("catch Exception");
-         } catch (Throwable e) {
-             System.err.println("catch Throwable");
-         }
-         System.err.println("next statement");
-     }
+class App38 {
+    public static void main(String[] args) {
+        try {
+            throw new Exception();
+        } catch (RuntimeException e) {
+            System.err.println("catch RuntimeException");
+        } catch (Exception e) {
+            System.err.println("catch Exception");
+        } catch (Throwable e) {
+            System.err.println("catch Throwable");
+        }
+        System.err.println("next statement");
+    }
 
 //>> catch Exception
-     //       >> next statement
- }
- class App39 {
+    //       >> next statement
+}
+
+class App39 {
     public static void main(String[] args) {
         try {
             Throwable t = new Exception(); // ссылка типа Throwable указывает на объект типа Exception
@@ -666,9 +669,10 @@ class App34 {
 //>> catch Exception
     //>> next statement
 }
+
 //try + finally
 //finally-секция получает управление, если try-блок завершился успешно
- class App40 {
+class App40 {
     public static void main(String[] args) {
         try {
             System.err.println("try");
@@ -679,6 +683,7 @@ class App34 {
 //>> try
 //>> finally
 }
+
 class App41 {
     //finally-секция получает управление, даже если try-блок завершился исключением
     public static void main(String[] args) {
@@ -691,17 +696,19 @@ class App41 {
 //>> finally
 //>> Exception in thread "main" java.lang.RuntimeException
 }
- class App42 {
+
+class App42 {
     //finally-секция получает управление, даже если try-блок завершился директивой выхода из метода
-     public static void main(String[] args) {
-         try {
-             return;
-         } finally {
-             System.err.println("finally");
-         }
-     }
+    public static void main(String[] args) {
+        try {
+            return;
+        } finally {
+            System.err.println("finally");
+        }
+    }
 //>> finally
- }
+}
+
 class App43 {
     //finally-секция НЕ вызывается только если мы «прибили» JVM
     public static void main(String[] args) {
@@ -713,6 +720,7 @@ class App43 {
     }
 //>> Process finished with exit code 42
 }
+
 class App44 {
     //System.exit(42) и Runtime.getRuntime().exit(42) — это синонимы
     public static void main(String[] args) {
@@ -724,17 +732,19 @@ class App44 {
     }
 //>> Process finished with exit code 42
 }
- class App45 {
+
+class App45 {
     //И при Runtime.getRuntime().halt(42) — тоже не успевает зайти в finally
-     public static void main(String[] args) {
-         try {
-             Runtime.getRuntime().halt(42);
-         } finally {
-             System.err.println("finally");
-         }
-     }
+    public static void main(String[] args) {
+        try {
+            Runtime.getRuntime().halt(42);
+        } finally {
+            System.err.println("finally");
+        }
+    }
 //>> Process finished with exit code 42
- }
+}
+
 class App46 {
     public static void main(String[] args) {
         try {
@@ -751,6 +761,7 @@ class App46 {
 //>> finally
 // >> Exception in thread "main" java.lang.RuntimeException
 }
+
 class App47 {
     public static void main(String[] args) {
         try {
@@ -759,47 +770,50 @@ class App47 {
         } finally {
             System.err.println("finally");
         }
-       // System.err.println("more"); //отказывается  компилировать
+        // System.err.println("more"); //отказывается  компилировать
     }
 }
 //>> COMPILER ERROR: Unrechable statement
 
- class App48 {
+class App48 {
     //И finally-секция не может «предотвратить» выход из метода, если try-блок вызвал return
     // («more» — не выводится в консоль)
-     public static void main(String[] args) {
-         try {
-             System.err.println("try");
-             if (true) {
-                 return;
-             }
-         } finally {
-             System.err.println("finally");
-         }
-         System.err.println("more");
-     }
+    public static void main(String[] args) {
+        try {
+            System.err.println("try");
+            if (true) {
+                return;
+            }
+        } finally {
+            System.err.println("finally");
+        }
+        System.err.println("more");
+    }
 //>> try
 //>> finally
- }
- class App49 {
-    //Однако finally-секция может «перебить» throw/return при помощи другого throw/return
-     public static void main(String[] args) {
-         System.err.println(f());
-     }
+}
 
-     public static int f() {
-         try {
-             return 0;
-         } finally {
-             return 1;
-         }
-     }
-//>> 1
- }
- class App50 {
+class App49 {
+    //Однако finally-секция может «перебить» throw/return при помощи другого throw/return
     public static void main(String[] args) {
         System.err.println(f());
     }
+
+    public static int f() {
+        try {
+            return 0;
+        } finally {
+            return 1;
+        }
+    }
+//>> 1
+}
+
+class App50 {
+    public static void main(String[] args) {
+        System.err.println(f());
+    }
+
     public static int f() {
         try {
             throw new RuntimeException();
@@ -808,11 +822,13 @@ class App47 {
         }
     }
 }
+
 //>> 1
- class App51 {
+class App51 {
     public static void main(String[] args) {
         System.err.println(f());
     }
+
     public static int f() {
         try {
             return 0;
@@ -821,10 +837,12 @@ class App47 {
         }
     }
 }//>> Exception in thread "main" java.lang.RuntimeException
- class App52 {
+
+class App52 {
     public static void main(String[] args) {
         System.err.println(f());
     }
+
     public static int f() {
         try {
             throw new Error();
@@ -833,6 +851,7 @@ class App47 {
         }
     }
 }//>> Exception in thread "main" java.lang.RuntimeException
+
 //finally-секция может быть использована для завершающего действия, которое гарантированно
 // будет вызвано (даже если было брошено исключение или автор использовал return) по окончании работы
 //// open some resource
@@ -857,40 +876,42 @@ class App47 {
 //} finally {
 //    input.close();
 //}
- class App53 {
+class App53 {
     public static void main(String[] args) {
         System.err.println(f());
     }
+
     public static int f() {//не работает свой велосипед
         //   long rnd = System.currenttimeMillis();
-      //  boolean finished = false;
-      //  try {
-         //   if (rnd % 3 == 0) {
-                throw new Error();
-         //   } else if (rnd % 3 == 1) {
-           //     throw new RuntimeException();
+        //  boolean finished = false;
+        //  try {
+        //   if (rnd % 3 == 0) {
+        throw new Error();
+        //   } else if (rnd % 3 == 1) {
+        //     throw new RuntimeException();
         //    } else {
-                // nothing
+        // nothing
         //    }
-         //   finished = true;
-       // } finally {
-          //  if (finished) {
-                // не было исключений
+        //   finished = true;
+        // } finally {
+        //  if (finished) {
+        // не было исключений
         //    } else {
-                // было исключение, но какое?
-           // }
-      //  }
+        // было исключение, но какое?
+        // }
+        //  }
     }
 }
+
 //--------------------Не рекомендуемые практики----------------------
 // try + catch + finally
- class App54 { //dont have exeption
+class App54 { //dont have exeption
     public static void main(String[] args) {
         try {
             System.err.print(" 0");
             // nothing
             System.err.print(" 1");
-        } catch(Error e) {
+        } catch (Error e) {
             System.err.print(" 2");
         } finally {
             System.err.print(" 3");
@@ -898,15 +919,18 @@ class App47 {
         System.err.print(" 4");
     }
 }
+
 //>> 0 1 3 4
- class App55 {
+class App55 {
     //Есть исключение и есть подходящий catch
     public static void main(String[] args) {
         try {
             System.err.print(" 0");
-            if (true) {throw new Error();}
+            if (true) {
+                throw new Error();
+            }
             System.err.print(" 1");
-        } catch(Error e) {
+        } catch (Error e) {
             System.err.print(" 2");
         } finally {
             System.err.print(" 3");
@@ -914,15 +938,18 @@ class App47 {
         System.err.print(" 4");
     }
 }
+
 //>> 0 2 3 4
 class App56 {
     //Есть исключение но нет подходящего catc
     public static void main(String[] args) {
         try {
             System.err.print(" 0");
-            if (true) {throw new RuntimeException();}
+            if (true) {
+                throw new RuntimeException();
+            }
             System.err.print(" 1");
-        } catch(Error e) {
+        } catch (Error e) {
             System.err.print(" 2");
         } finally {
             System.err.print(" 3");
@@ -930,76 +957,84 @@ class App56 {
         System.err.print(" 4");
     }
 }
+
 //>> 0 3
 //>> RUNTIME ERROR: Exception in thread "main" java.lang.RuntimeException
 // Вложенные try + catch + finally
- class App57 {
+class App57 {
     //неограниченное вложение
     public static void main(String[] args) {
         if (args.length > 1) {
             if (args.length > 2) {
                 if (args.length > 3) {
-                 //   ...
+                    //   ...
                 }
             }
         }
     }
 }
- class App58 {
+
+class App58 {
     public static void main(String[] args) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; i++) {
                 for (int k = 0; k < 10; k++) {
-                   // ...
+                    // ...
                 }
             }
         }
     }
 }
- class App59 {
+
+class App59 {
     //try-cacth-finally тоже допускает неограниченное вложение
     public static void main(String[] args) {
         try {
             try {
                 try {
-                  //  ...
+                    //  ...
                 } catch (Exception e) {
-                } finally {}
+                } finally {
+                }
             } catch (Exception e) {
-            } finally {}
+            } finally {
+            }
         } catch (Exception e) {
-        } finally {}
+        } finally {
+        }
     }
 }
+
 class App60 {
     public static void main(String[] args) {
         try {
             try {
-              //  ...
+                //  ...
             } catch (Exception e) {
-              //  ...
+                //  ...
             } finally {
-              //  ...
+                //  ...
             }
         } catch (Exception e) {
             try {
-             //   ...
+                //   ...
             } catch (Exception i) {
-               // ...
+                // ...
             } finally {
-              //  ...
+                //  ...
             }
         } finally {
             try {
-              //  ...
+                //  ...
             } catch (Exception e) {
-              //  ...
+                //  ...
             } finally {
-              //  ...
+                //  ...
             }
         }
     }
 }
+
 class App61 {
     //Вложенный try-catch-finally без исключения
     public static void main(String[] args) {
@@ -1023,6 +1058,7 @@ class App61 {
         System.err.print(" 8");         // заходим - выполнение в норме
     }
 }
+
 //>> 0 1 2 4 5 7 8
 class App62 {
     //Вложенный try-catch-finally с исключением, которое ПЕРЕХВАТИТ ВНУТРЕННИЙ catch
@@ -1031,7 +1067,9 @@ class App62 {
             System.err.print(" 0");
             try {
                 System.err.print(" 1");
-                if (true) {throw new RuntimeException();}
+                if (true) {
+                    throw new RuntimeException();
+                }
                 System.err.print(" 2");
             } catch (RuntimeException e) {
                 System.err.print(" 3"); // ЗАХОДИМ - есть исключение
@@ -1047,15 +1085,18 @@ class App62 {
         System.err.print(" 8");         // заходим - выполнение УЖЕ в норме
     }
 }
+
 //>> 0 1 3 4 5 7 8
- class App63 {
+class App63 {
     //Вложенный try-catch-finally с исключением, которое ПЕРЕХВАТИТ ВНЕШНИЙ catch
     public static void main(String[] args) {
         try {
             System.err.print(" 0");
             try {
                 System.err.print(" 1");
-                if (true) {throw new Exception();}
+                if (true) {
+                    throw new Exception();
+                }
                 System.err.print(" 2");
             } catch (RuntimeException e) {
                 System.err.print(" 3"); // НЕ заходим - есть исключение, но НЕПОДХОДЯЩЕГО ТИПА
@@ -1071,6 +1112,7 @@ class App62 {
         System.err.print(" 8");         // заходим - выполнение УЖЕ в норме
     }
 }
+
 //>> 0 1 4 6 7 8
 class App64 {
     //Вложенный try-catch-finally с исключением, которое НИКТО НЕ ПЕРЕХВАТИТ
@@ -1079,7 +1121,9 @@ class App64 {
             System.err.print(" 0");
             try {
                 System.err.print(" 1");
-                if (true) {throw new Error();}
+                if (true) {
+                    throw new Error();
+                }
                 System.err.print(" 2");
             } catch (RuntimeException e) {
                 System.err.print(" 3"); // НЕ заходим - есть исключение, но НЕПОДХОДЯЩЕГО ТИПА
